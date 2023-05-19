@@ -50,7 +50,7 @@ class Rester(object):
             urls implementing a similar interface.
     """
 
-    def __init__(self, api_key=None, endpoint=None):
+    def __init__(self, api_key:str|None=None, endpoint:str|None=None):
         self.api_key = api_key if api_key else environ.get('ZUMBI_API_KEY', None)
         if not self.api_key:
             raise ZumbiRestError(
@@ -75,21 +75,19 @@ class Rester(object):
         """
         return self
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    def __exit__(self, *_):
         """
         Support for "with" context.
         """
         self.session.close()
 
     def _make_request(self, sub_url, payload=None, method="GET"):
-        requester = RequesterFactory().create(self.session, "api")
+        requester = RequesterFactory.create(self.session, "dummy")
         url = self.preamble + sub_url
         try:
             return requester.make_request(url, method, payload, True)
-        except Exception as ex:
-            msg = "{}. Content: {}".format(str(ex), response.content) \
-                if hasattr(response, "content") else str(ex)
-            raise ZumbiRestError(msg)
+        except requests.HTTPError as ex:
+            raise ZumbiRestError(ex.strerror)
 
     def __search(self, group_by, entities, text=None, elements=None, top_k=10):
         method = "POST"

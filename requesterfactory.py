@@ -1,30 +1,33 @@
 import json
+from typing import Literal, Any
+import requests
 
 class RequesterFactory:
-    def create(self, session, type):
+    @staticmethod
+    def create(session:requests.Session, type:Literal["api","dummy"]):
         if (type == "api"):
             return APIRequester(session)
         elif (type == "dummy"):
             return DummyRequester()
+        else:
+            raise ValueError(f"Tipo de requester {type} não existe")
 
 class APIRequester:
-    def __init__(self, session):
+    def __init__(self, session:requests.Session):
         self.session = session
 
-    def make_request(self, url, method, payload, verify):
-        response = None
-        data = None
+    def make_request(self, url:str, method:str, payload:dict[str,Any], verify:bool = True) -> dict[str,Any]:
         if method == "POST":
-            response = self.session.post(url, json=payload, verify=True)
+            response = self.session.post(url, json=payload, verify=verify)
         else:
-            response = self.session.get(url, params=payload, verify=True)
+            response = self.session.get(url, params=payload, verify=verify)
         if response.status_code in [200, 400]:
-            data = json.loads(response.text)
-        return data
+            return response.json()
+        else:
+            response.raise_for_status()
 
 class DummyRequester:
-    def make_request(self, url, method, payload, verify):
+    @staticmethod
+    def make_request(*_) -> dict[str,Any]:
         with open('json/file01.json') as f:
-            text = f.read()
-            data = json.loads(text)
-        return data
+            return json.load(f)

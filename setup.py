@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 from setuptools import find_packages, setup
+from app import app
 
 with open("README.md") as f:
     README = f.read()
