@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import dash_html_components as html
+from dash import html
 
 from search.common import no_results_html
 from search.subviews.entities import (

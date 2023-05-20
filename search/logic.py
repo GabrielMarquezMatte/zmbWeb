@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import random
-import re
+from dash.html import Div
 
 from zumbi import ZumbiRestError
 from common import common_rester_error_html
@@ -26,7 +26,7 @@ Callback logic for callbacks in the search app.
 
 Please do not define any html blocks in this file.
 """
-def show_search_results(go_button_n_clicks, search_text):
+def show_search_results(go_button_n_clicks:int, search_text:str) -> Div:
     """
     Determine what kind of results to show from the search text, search type,
     and number of clicks of the search button.
@@ -40,8 +40,8 @@ def show_search_results(go_button_n_clicks, search_text):
         (dash_html_components.Div): The correct html block for the search type
             and customized according to search results from the search text.
     """
-    if go_button_n_clicks in [None, 0]:
-        return ""
+    if not go_button_n_clicks:
+        return Div()
     else:
         try:
 

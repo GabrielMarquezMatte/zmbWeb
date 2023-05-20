@@ -1,4 +1,4 @@
-import dash_html_components as html
+from dash import html
 
 import search.common as msweb_scommon
 from tests.util import ZumbiWebBaseTest

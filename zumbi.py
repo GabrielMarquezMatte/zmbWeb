@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import requests
-import json
-import warnings
 from os import environ
 from requesterfactory import RequesterFactory
 from dotenv import load_dotenv

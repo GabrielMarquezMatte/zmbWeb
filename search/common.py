@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import dash_html_components as html
+from dash import html
 
 from common import common_null_warning_html
 

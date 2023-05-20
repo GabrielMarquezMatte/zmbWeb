@@ -59,7 +59,7 @@ cache = Cache(app.server, config={"CACHE_TYPE": "simple"})
     Output("core-app-container", "children"),
     [Input("core-url", "pathname")]
 )
-def display_app_html(path):
+def display_app_html(path:str):
     """
     Updates which app is shown.
 
@@ -70,7 +70,8 @@ def display_app_html(path):
     Returns:
         (dash_html_components.Div): The app being shown, or a 404.
     """
-    if str(path).strip() in ["/", "/search"] or not path:
+    path = path.strip()
+    if path in ["/", "/search"] or not path:
         return sv.app_view_html()
     elif path == "/extract":
         return av.app_view_html()
@@ -85,7 +86,7 @@ def display_app_html(path):
 @app.callback(
     Output("core-nav-container", "children"), [Input("core-url", "pathname")]
 )
-def update_nav_bar_highlight(path):
+def update_nav_bar_highlight(path:str):
     """
     Update the navigation bar highlight according to the current path.
 
@@ -199,7 +200,7 @@ def sum_all_fields_and_buttons_n_submits(*all_n_clicks):
         State("search-main-bar-input", "value"),
     ],
 )
-def show_search_results(go_button_n_clicks, search_text):
+def show_search_results(go_button_n_clicks:int, search_text:str):
     """
     Determine what kind of results to show from the search text, search type,
     and number of clicks of the search button. Cache if necessary using flask.
@@ -217,12 +218,13 @@ def show_search_results(go_button_n_clicks, search_text):
     if search_text:
         # Prevent from caching on n_clicks if the results aren't empty
         @cache.memoize(timeout=cache_timeout)
-        def memoize_wrapper(search_text):
+        def memoize_wrapper(search_text:str):
             return sl.show_search_results(
                 go_button_n_clicks, search_text
             )
 
-        return memoize_wrapper(search_text)
+        val = memoize_wrapper(search_text)
+        return val
     else:
         return sl.show_search_results(
             go_button_n_clicks,search_text

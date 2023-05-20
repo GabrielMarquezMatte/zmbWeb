@@ -3,7 +3,7 @@
 import inspect
 import unittest
 
-import dash_html_components as html
+from dash import html
 
 from constants import (
     api_key,

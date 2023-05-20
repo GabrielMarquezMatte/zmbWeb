@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import os
-
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc
+from dash import html
 from dash_elasticsearch_autosuggest import ESAutosuggest
 
 from common import (
     common_null_warning_html,
     common_warning_html,
-    divider_html,
     logo_html,
 )
 from constants import (

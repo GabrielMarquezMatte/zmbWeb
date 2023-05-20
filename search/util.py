@@ -2,8 +2,8 @@
 
 import copy
 import re
-
-from dash.dependencies import Input, Output, State
+from typing import Literal, Type
+from dash.dependencies import Input, Output, State, DashDependency
 
 from zmb_labels import ZmbLabels
 
@@ -25,7 +25,7 @@ class ZumbiWebSearchError(BaseException):
     pass
 
 
-def get_search_field_callback_args(as_type="state", return_component="value"):
+def get_search_field_callback_args(as_type:Literal["state","input","output"]="state", return_component:str|int="value"):
     """
     Return all available entity boxes as Inputs, Outputs, or States.
 
@@ -40,8 +40,8 @@ def get_search_field_callback_args(as_type="state", return_component="value"):
         (list): The list of inputs, states, or outputs plotly dash dependency
             objects on the search page.
     """
-    type_dict = {"state": State, "output": Output, "input": Input}
-    t = type_dict[as_type]
+    type_dict:dict[str,Type[DashDependency]] = {"state": State, "output": Output, "input": Input}
+    t: Type[DashDependency] = type_dict[as_type]
 
     filters = []
     for f in [class_.api() for class_ in ZmbLabels.all_classes()]:
@@ -49,7 +49,7 @@ def get_search_field_callback_args(as_type="state", return_component="value"):
     return filters
 
 
-def parse_search_box(search_text):
+def parse_search_box(search_text:str):
     """
     Parse the entity search text box
 

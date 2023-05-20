@@ -1,5 +1,5 @@
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc
+from dash import html
 from datetime import date
 
 """
@@ -60,7 +60,7 @@ def core_view_html():
     return core_view
 
 
-def nav_html(page="/"):
+def nav_html(page:str="/"):
     """
     Get the plotly html block for the nav bar.
 
@@ -78,13 +78,9 @@ def nav_html(page="/"):
     highlighted_style = " msweb-is-underlined"
     if page in ["/", "/search"]:
         styles["search"] += highlighted_style
-    #elif page == "/extract":
-    #    styles["extract"] += highlighted_style
     elif page == "/about":
-        # styles["about"] += highlighted_style
         styles["info"] += highlighted_style
     elif page == "/journals":
-        # styles["journals"] += highlighted_style
         styles["info"] += highlighted_style
     elif page is None:
         pass
@@ -94,9 +90,6 @@ def nav_html(page="/"):
     search = dcc.Link(
         "Pesquisar Corpus", href="/search", className=styles["search"]
     )
-    #extract = dcc.Link(
-    #    "Analisar uma Matéria", href="/extract", className=styles["extract"]
-    #)
     about = dcc.Link("Sobre", href="/about", className=styles["about"])
     journals = dcc.Link(
         "Matérias", href="/journals", className=styles["journals"]
@@ -108,7 +101,6 @@ def nav_html(page="/"):
         className="navbar-item has-dropdown is-hoverable",
     )
     navbar_start = html.Div(
-        #[search, extract, dropdown], className="navbar-start"
         [search, dropdown], className="navbar-start"
     )
 

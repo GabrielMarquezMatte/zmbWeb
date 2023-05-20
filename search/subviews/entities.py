@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import dash_html_components as html
+from dash import html
 from zmb_labels import ZmbLabels
+from typing import Any
 
 from constants import rester
 from search.common import (
@@ -62,7 +63,7 @@ def entities_results_html(results):
         return all_tables_container
 
 
-def all_score_tables_html(results_dict):
+def all_score_tables_html(results_dict:dict[str,Any]):
     """
     Get all the score tables for all entity types as an html block.
 
@@ -103,7 +104,7 @@ def all_score_tables_html(results_dict):
 
     return html.Div(div_rows)
 
-def single_entity_score_table_html(most_common, entity_, width):
+def single_entity_score_table_html(most_common:str, entity_, width):
     """
     Get the html block for a single entity's score table.
 
