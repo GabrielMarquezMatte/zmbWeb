@@ -76,7 +76,7 @@ def nav_html(page:str="/"):
     styles["info"] = "navbar-link has-text-weight-semibold"
 
     highlighted_style = " msweb-is-underlined"
-    if page in ["/", "/search"]:
+    if page in ["/", "/search","/search_results"]:
         styles["search"] += highlighted_style
     elif page == "/about":
         styles["info"] += highlighted_style

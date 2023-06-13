@@ -8,14 +8,12 @@ import about.view as bv
 import extract.logic as el
 import extract.view as av
 import journals.view as jv
-from common import common_404_html
-from constants import cache_timeout, outage
-from view import core_view_html, nav_html, outage_html
-
-from search.util import get_search_field_callback_args
 import search.logic as sl
 import search.view as sv
-from time import sleep
+from common import common_404_html
+from constants import cache_timeout, outage
+from search.util import get_search_field_callback_args
+from view import core_view_html, nav_html, outage_html
 
 """
 A safe place for the dash app core instance to hang out.
@@ -129,7 +127,7 @@ app.clientside_callback(
         as_type="input", return_component="value"
     ),
 )
-def search_bar_live_display(example_search_n_clicks, *ent_txts):
+def search_bar_live_display(example_search_n_clicks:int, *ent_txts:str):
     """
     Update the main search bar text live from the example search button and the
     entity fields being typed in.
@@ -173,7 +171,7 @@ def void_example_search_n_clicks_on_live_search(*ent_txts):
     ),
     [State("search-go-button", "n_clicks")],
 )
-def sum_all_fields_and_buttons_n_submits(*all_n_clicks):
+def sum_all_fields_and_buttons_n_submits(*all_n_clicks:int):
     """
     Sum the guided search fields and main search field and "Go" button n_submits
     and n_clicks to a single n_clicks number for the Go button. Thus the user
@@ -195,6 +193,7 @@ def sum_all_fields_and_buttons_n_submits(*all_n_clicks):
 
 @app.callback(
     Output("search-results-container", "children"),
+    # Output("core-app-container", "children"),
     [Input("search-go-button", "n_clicks")],
     [
         State("search-main-bar-input", "value"),

@@ -42,6 +42,23 @@ def app_view_html():
         ]
     )
 
+def app_view_results_html(result_div: html.Div):
+    """
+    The entire app view (layout) for the search app.
+
+    Returns:
+        (dash_html_components.Div): The entire view for the search app.
+    """
+
+    return html.Div(
+        [
+            logo_html(),
+            search_bar_and_buttons_html(),
+            guided_search_boxes_html(),
+            result_div,
+        ]
+    )
+
 
 def subview_results_container_html():
     """

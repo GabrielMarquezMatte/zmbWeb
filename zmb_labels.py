@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import pandas as pd
+from typing import Type
 
 CODES_FILE = 'language/codes_ptBR.tsv'
 
@@ -370,7 +371,7 @@ class ZmbLabels:
             return "light-blue"
         
     @staticmethod
-    def all_classes() -> list[BaseLabel]:
+    def all_classes() -> list[Type[BaseLabel]]:
         """
         Returns the classes of all labels
         """

@@ -1,25 +1,19 @@
 # -*- coding: utf-8 -*-
 
 import random
+
 from dash.html import Div
 
-from zumbi import ZumbiRestError
 from common import common_rester_error_html
 from constants import example_searches
 from search.subviews.entities import (
     entities_results_query,
-    entities_results_summary
+    entities_results_summary,
 )
-from search.util import (
-    ZumbiWebSearchError,
-    parse_search_box,
-)
-from search.view import (
-    malformed_query_warning_html,
-    no_query_warning_html,
-)
-
+from search.util import ZumbiWebSearchError, parse_search_box
+from search.view import malformed_query_warning_html
 from zmb_labels import ZmbLabels
+from zumbi import ZumbiRestError
 
 """
 Callback logic for callbacks in the search app.
@@ -62,7 +56,7 @@ def show_search_results(go_button_n_clicks:int, search_text:str) -> Div:
             )
             return common_rester_error_html(rester_error)
 
-def sum_all_fields_and_buttons_n_submits(*all_n_clicks):
+def sum_all_fields_and_buttons_n_submits(*all_n_clicks:int):
     """
     Sum the guided search fields and main search field and "Go" button n_submits
     and n_clicks to a single n_clicks number for the Go button. Thus the user
@@ -85,7 +79,7 @@ def sum_all_fields_and_buttons_n_submits(*all_n_clicks):
     return n_times_searched
 
 
-def search_bar_live_display(example_search_n_clicks, *ent_txts):
+def search_bar_live_display(example_search_n_clicks:int, *ent_txts:str):
     """
     Update the main search bar text live from the example search button and the
     entity fields being typed in.
